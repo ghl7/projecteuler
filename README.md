@@ -1,4 +1,4 @@
 # projecteuler
 Project Euler
 
-Test 
+Solutions to Project Euler
