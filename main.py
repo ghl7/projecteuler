@@ -1,7 +1,5 @@
 import math
 import numpy as np
-from BigNumber import *
-from BigNumber.BigNumber import BigNumber
 
 from problems_1_10 import process_problems_1_10
 from functools import reduce
@@ -86,8 +84,7 @@ def problem_11(args):
 
 def factors(n):
     step = 2 if n % 2 else 1
-    return set(reduce(list.__add__,
-                      ([i, n // i] for i in range(1, int(sqrt(n)) + 1, step) if n % i == 0)))
+    return set(reduce(list.__add__,([i, n // i] for i in range(1, int(sqrt(n)) + 1, step) if n % i == 0)))
 
 
 def problem_12(args):
@@ -219,9 +216,10 @@ def func_collatz(n):
     arr = []
     arr.append(int(n))
     while n != 1:
-        n = (n/2) if ((n % 2) == 0) else (n + n + n + 1)
+        n = (n / 2) if ((n % 2) == 0) else (n + n + n + 1)
         arr.append(int(n))
     return arr
+
 
 def problem_14(args):
     max_c = 0
@@ -233,25 +231,28 @@ def problem_14(args):
             max_n = i
     return max_n
 
+
 def problem_15(args):
     # Creates array of size +1 filled with zeros
-    w, h = args[1]+1, args[1]+1
+    w, h = args[1] + 1, args[1] + 1
     arr = [[0 for x in range(w)] for y in range(h)]
     # use pascal triangle approach, fill in 1st row/col with '1'
     for r in range(0, w):
-        arr [r][0] = 1
+        arr[r][0] = 1
     for c in range(0, h):
-        arr [0][c] = 1
+        arr[0][c] = 1
 
     # now sweep inside adding predecessors together
     for r in range(1, w):
         for c in range(1, h):
-            arr[r][c] = arr[r][c-1] + arr[r-1][c]
+            arr[r][c] = arr[r][c - 1] + arr[r - 1][c]
     # return last one
     return arr[args[1]][args[1]]
 
+
 def problem_16(args):
     return sum(map(int, str(pow(2, args[1]))))
+
 
 def number_to_words(n):
     dict_ = {
@@ -263,7 +264,7 @@ def number_to_words(n):
         '16': "sixteen", '17': "seventeen", '18': "eighteen", '19': "nineteen",
         '20': "twenty", '30': "thirty", '40': "forty", '50': "fifty",
         '60': "sixty", '70': "seventy", '80': "eighty", '90': "ninety"
-             }
+    }
     s = ""
 
     if n < 10:
@@ -271,29 +272,31 @@ def number_to_words(n):
     elif n < 20:
         s = dict_[str(n)]
     elif n < 100:
-        m = 10 * int(n/10)
+        m = 10 * int(n / 10)
         n = n % 10
         s = dict_[str(m)]
         if n != 0:
             s = s + number_to_words(n)
     elif n < 1000:
-        m = int(n/100)
+        m = int(n / 100)
         n = int(n % 100)
         s = dict_[str(m)] + 'hundred'
         if n > 0:
             s = s + " and " + number_to_words(n)
     elif n == 1000:
-        m = int(n/1000)
+        m = int(n / 1000)
         s = s + dict_[str(m)] + 'thousand'
 
-    s = s.replace(" ", "").replace("-", "")
+    s = s.replace(' ', '').replace('-', '')
     return s
+
 
 def problem_17(args):
     x = 0
-    for i in range(1, args[1]+1):
+    for i in range(1, args[1] + 1):
         x = x + len(number_to_words(i))
     return x
+
 
 def problem_18(args):
     # arr = [
@@ -308,41 +311,41 @@ def problem_18(args):
         95, 64, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00,
         17, 47, 82, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00,
         18, 35, 87, 10, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00,
-        20,  4, 82, 47, 65, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00,
-        19,  1, 23, 75,  3, 34, 00, 00, 00, 00, 00, 00, 00, 00, 00,
-        88,  2, 77, 73,  7, 63, 67, 00, 00, 00, 00, 00, 00, 00, 00,
-        99, 65,  4, 28,  6, 16, 70, 92, 00, 00, 00, 00, 00, 00, 00,
+        20, 4, 82, 47, 65, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00,
+        19, 1, 23, 75, 3, 34, 00, 00, 00, 00, 00, 00, 00, 00, 00,
+        88, 2, 77, 73, 7, 63, 67, 00, 00, 00, 00, 00, 00, 00, 00,
+        99, 65, 4, 28, 6, 16, 70, 92, 00, 00, 00, 00, 00, 00, 00,
         41, 41, 26, 56, 83, 40, 80, 70, 33, 00, 00, 00, 00, 00, 00,
         41, 48, 72, 33, 47, 32, 37, 16, 94, 29, 00, 00, 00, 00, 00,
         53, 71, 44, 65, 25, 43, 91, 52, 97, 51, 14, 00, 00, 00, 00,
         70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57, 00, 00, 00,
         91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48, 00, 00,
-        63, 66,  4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31, 00,
-         4, 62, 98, 27, 23,  9, 70, 98, 73, 93, 38, 53, 60,  4, 23
+        63, 66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31, 00,
+        4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23
     ]
 
     h = int(math.sqrt(len(arr)))
     w = int(math.sqrt(len(arr)))
 
-    a = np.zeros((h, w+1), dtype=int)
+    a = np.zeros((h, w + 1), dtype=int)
 
     for r in range(0, h):
-        for c in range(1, w+1):
-            a[r][c] = arr[w*r + c-1]
+        for c in range(1, w + 1):
+            a[r][c] = arr[w * r + c - 1]
 
     for r in range(1, h):
         for c in range(1, w):
             z = a[r][c]
-            x = a[r-1][c-1] + z
-            y = a[r-1][c] + z
+            x = a[r - 1][c - 1] + z
+            y = a[r - 1][c] + z
             if x > y:
                 a[r][c] = x
             else:
                 a[r][c] = y
-    return np.max(a[h-1])
+    return np.max(a[h - 1])
+
 
 def next_day(day, month, year, monthday):
-
     day = (day + 1) % 7
     if month == 2:
         monthday = monthday + 1
@@ -355,18 +358,19 @@ def next_day(day, month, year, monthday):
                 if monthday == 28:
                     month = (month + 1) % 12
                     monthday = 1
-    elif month == 9 or month==4 or month==6 or month==11:
-        monthday = monthday+1
+    elif month == 9 or month == 4 or month == 6 or month == 11:
+        monthday = monthday + 1
         if monthday == 31:
             month = (month + 1) % 12
             monthday = 1
     else:
-        monthday = monthday+1
+        monthday = monthday + 1
         if monthday == 32:
             month = (month + 1) % 12
             monthday = 1
 
     return day, month, year, monthday
+
 
 def problem_19(args):
     n = 0
@@ -393,8 +397,8 @@ def main():
     # process_problem(problem_15, 20)
     # process_problem(problem_16, 1000)
     # process_problem(problem_17, 1000)
-    # process_problem(problem_18, "")
-    process_problem(problem_19,"")
+    process_problem(problem_18, "")
+    # process_problem(problem_19,"")
 
 
 if __name__ == '__main__':
