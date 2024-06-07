@@ -4,6 +4,7 @@ import numpy as np
 from problems_1_10 import process_problems_1_10
 from functools import reduce
 from math import sqrt
+from datetime import *
 from util import process_problem
 
 
@@ -347,44 +348,57 @@ def problem_18(args):
 
 def next_day(day, month, year, monthday):
     day = (day + 1) % 7
-    if month == 2:
-        monthday = monthday + 1
-        if year % 4 == 0:
-            if year % 400 != 0:
-                if monthday == 29:
-                    month = (month + 1) % 12
-                    monthday = 1
-            else:
-                if monthday == 28:
-                    month = (month + 1) % 12
-                    monthday = 1
-    elif month == 9 or month == 4 or month == 6 or month == 11:
-        monthday = monthday + 1
+    if ((month == 12) & (monthday == 31)):
+        year = year + 1
+    if ((month == 1) | (month == 3) | (month == 5) | (month == 7) | (month == 8) | (month == 10) | (month == 12)):
         if monthday == 31:
             month = (month + 1) % 12
             monthday = 1
-    else:
-        monthday = monthday + 1
-        if monthday == 32:
-            month = (month + 1) % 12
+        else:
+            monthday = (monthday + 1) % 32
+
+    elif ((month == 4) | (month == 6) | (month == 9) | (month == 11)):
+        if monthday == 30:
+            month = month + 1
             monthday = 1
+        else:
+            monthday = (monthday + 1) % 31
+
+    elif month == 2:
+        if year % 4 == 0 and year % 100 != 0:
+            if monthday == 29:
+                month = month + 1
+                monthday = 1
+            else:
+                monthday = monthday + 1
+        elif monthday == 28:
+                month = month + 1
+                monthday = 1
+        else:
+            monthday = monthday + 1
 
     return day, month, year, monthday
 
 
 def problem_19(args):
-    n = 0
-    # 0=MON 1=TUE 2=WED 3=THR 4=FRI 5=SAT 6=SUN
-    day = 0
-    # 1=JAN 2=FEB 3=MAR 4=APR 5=MAY 6=JUN 7=JUL 8=AUG 9=SEP 10=OCT 11=NOV 12=DEC
+
+    counter = 0
+    year = 1901
     month = 1
-    year = 1900
-    monthday = 1
 
-    while True:
-        (day, month, year, monthday) = next_day(day, month, year, monthday)
+    curr_day = date(year, month, 1)
 
-    return 0
+    while curr_day.year < 2001:
+        if curr_day.weekday() == 6:
+            counter += 1
+        if month + 1 == 13:
+            month = 1
+            year += 1
+        else:
+            month += 1
+        curr_day = date(year, month, 1)
+
+    return counter
 
 
 def main():
@@ -397,8 +411,8 @@ def main():
     # process_problem(problem_15, 20)
     # process_problem(problem_16, 1000)
     # process_problem(problem_17, 1000)
-    process_problem(problem_18, "")
-    # process_problem(problem_19,"")
+    # process_problem(problem_18, "")
+    process_problem(problem_19,"")
 
 
 if __name__ == '__main__':
