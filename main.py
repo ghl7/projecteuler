@@ -1,11 +1,13 @@
 import math
 import numpy as np
+from BigNumber.BigNumber import BigNumber
 
 from problems_1_10 import process_problems_1_10
 from functools import reduce
 from math import sqrt
 from datetime import *
 from util import process_problem
+import BigNumber
 
 
 def problem_11(args):
@@ -397,9 +399,19 @@ def problem_19(args):
         else:
             month += 1
         curr_day = date(year, month, 1)
-
     return counter
 
+def problem_20(args):
+    x = 1
+    for i in range (1 , args[1]+1):
+        x = x * i
+
+    st = str(x)
+    a = list(st)
+    sum = 0
+    for b in a:
+        sum = sum + ord(b) - ord('0')
+    return sum
 
 def main():
     # process_problems_1_10()
@@ -412,7 +424,8 @@ def main():
     # process_problem(problem_16, 1000)
     # process_problem(problem_17, 1000)
     # process_problem(problem_18, "")
-    process_problem(problem_19,"")
+    # process_problem(problem_19,"")
+    process_problem(problem_20, 100)
 
 
 if __name__ == '__main__':
