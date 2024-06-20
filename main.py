@@ -2,8 +2,13 @@ from problems_11_20 import process_problems_11_20
 from problems_1_10 import process_problems_1_10
 
 def main():
-    process_problems_1_10()
-    process_problems_11_20()
+    # process_problems_1_10()
+    # process_problems_11_20()
+
+    N = 220
+    for x in range(1, N + 1):
+        if (N % x == 0):
+            print(x)
 
     # process_problem(problem_11, 4)
     # process_problem(problem_12, 500)
