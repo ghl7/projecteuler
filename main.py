@@ -13,13 +13,18 @@ def problem_21(args):
     total_sum = 0
     a = 100
     b = int(1.2 * a)
-    for i in range(a+2, b, 2):
-        if (a > args[1]) or (b > args[1]):
-            return total_sum
-        if (sum_of_divisors(a) == i) and (sum_of_divisors(a) == i):
-            print(a)
-            print(i)
-            total_sum = total_sum + i + a
+
+    while True:
+        for i in range(a+2, b, 2):
+            if b > args[1]:
+                return total_sum
+            if (sum_of_divisors(a) == i) and (sum_of_divisors(a) == i):
+                print(a)
+                print(i)
+                total_sum = total_sum + i + a
+                i = b
+                a = a + 2
+                b = int(1.2 * a)
 
 
 def main():
