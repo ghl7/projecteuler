@@ -12,20 +12,24 @@ def sum_of_divisors(n):
 def problem_21(args):
     total_sum = 0
     a = 100
-    b = int(1.2 * a)
+    b = args[1]
+    done = False
 
     while True:
-        for i in range(a+2, b, 2):
-            if b > args[1]:
+        a = a + 2
+        done = False
+        loc_sum = sum_of_divisors(a)
+        for i in range(a, b, 2):
+            if done: break
+            # if i >= b: break
+            if i > args[1]:
                 return total_sum
-            if (sum_of_divisors(a) == i) and (sum_of_divisors(a) == i):
+            if (loc_sum == i) and (sum_of_divisors(i) == a):
                 print(a)
                 print(i)
                 total_sum = total_sum + i + a
-                i = b
-                a = a + 2
-                b = int(1.2 * a)
-
+                a = i
+                done = True
 
 def main():
     # process_problems_1_10()
@@ -33,10 +37,10 @@ def main():
 
     process_problem(problem_21, 10000)
 
-    print(sum_of_divisors(220))
-    print(sum_of_divisors(284))
-    if (sum_of_divisors(220) == 284) and (sum_of_divisors(284) == 220):
-        print('220, 284 are amicable numbers')
+    # print(sum_of_divisors(220))
+    # print(sum_of_divisors(284))
+    # if (sum_of_divisors(220) == 284) and (sum_of_divisors(284) == 220):
+    #     print('220, 284 are amicable numbers')
 
 
 if __name__ == '__main__':
