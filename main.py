@@ -50,13 +50,19 @@ def problem_22(args):
         # print(f"{i} {x[i]} {y} {s} {total_sum}")
     return total_sum
 
+def problem_23(args):
+    return 0
+
 def main():
     # process_problems_1_10()
     # process_problems_11_20()
 
     # process_problem(problem_21, 10000)
-    process_problem(problem_22, "0022_names.txt")
+    # process_problem(problem_22, "0022_names.txt")
+    process_problem(problem_23, 28123)
 
+    x = sum_of_divisors(28)
+    print(x)
 
 if __name__ == '__main__':
     main()
