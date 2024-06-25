@@ -2,6 +2,7 @@ from problems_11_20 import process_problems_11_20
 from problems_1_10 import process_problems_1_10
 from util import process_problem
 
+
 def sum_of_divisors(n):
     z = 0
     for i in range(1, n):
@@ -10,26 +11,27 @@ def sum_of_divisors(n):
     return z
 
 def problem_21(args):
+    # 31626
     total_sum = 0
-    a = 100
-    b = args[1]
-    done = False
+    # start at 200 since we know 1st one is greater than 200
+    a = 200
 
     while True:
         a = a + 2
         done = False
         loc_sum = sum_of_divisors(a)
-        for i in range(a, b, 2):
-            if done: break
-            # if i >= b: break
-            if i > args[1]:
+        for i in range(a, args[1], 2):
+            if done:
+                break
+            if a >= (args[1] - 2):
                 return total_sum
-            if (loc_sum == i) and (sum_of_divisors(i) == a):
-                print(a)
-                print(i)
+            if (loc_sum == i) and (sum_of_divisors(i) == a) and (a != i):
+                # txt = f"({a},{i})"
+                # print(txt)
                 total_sum = total_sum + i + a
                 a = i
                 done = True
+
 
 def main():
     # process_problems_1_10()
