@@ -2,6 +2,7 @@ from problems_11_20 import process_problems_11_20
 from problems_1_10 import process_problems_1_10
 from util import process_problem
 import re
+import math
 
 
 def sum_of_divisors(n):
@@ -53,6 +54,32 @@ def problem_22(args):
 def problem_23(args):
     return 0
 
+def divisors(n):
+    """
+    Returns all nontrivial divisors of an integer, but makes no guarantees on the order.
+    """
+    # "1" is always a divisor (at least for our purposes)
+    yield 1
+
+    largest = int(math.sqrt(n))
+
+    # special-case square numbers to avoid yielding the same divisor twice
+    if largest * largest == n:
+        yield largest
+    else:
+        largest += 1
+
+    # all other divisors
+    for i in range(2, largest):
+        if n % i == 0:
+            yield i
+            yield n / i
+
+def is_abundant(n):
+    if n < 12:
+        return False
+    return sum(divisors(n)) > n
+
 def main():
     # process_problems_1_10()
     # process_problems_11_20()
@@ -60,9 +87,19 @@ def main():
     # process_problem(problem_21, 10000)
     # process_problem(problem_22, "0022_names.txt")
     process_problem(problem_23, 28123)
+    # 4179871
 
-    x = sum_of_divisors(28)
-    print(x)
+    abundants = list(x for x in range(1, 28123) if is_abundant(x))
+    print(abundants)
+
+    sums = 0
+    for i in range(12, 28123):
+        print(i)
+        for abundant in abundants:
+            if abundant >= i and is_abundant(i + abundant):
+                sums += i
+    print(sums)
+
 
 if __name__ == '__main__':
     main()
