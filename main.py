@@ -33,17 +33,22 @@ def problem_21(args):
                 done = True
 
 def problem_22(args):
+    # 871198282
     f = open(args[1])
     t = f.read()
     f.close()
-    print(t)
     t = re.sub('"', '', t)
-    print(t)
     x = re.split(',', t)
-    print(x)
     x.sort()
-    print(x)
-    return 0
+    total_sum = 0
+    for i in range(len(x)):
+        y = list(x[i])
+        s = 0
+        for j in range(len(y)):
+            s = s + (ord(y[j]) - ord('A') + 1)
+        total_sum = total_sum + s * (i+1)
+        # print(f"{i} {x[i]} {y} {s} {total_sum}")
+    return total_sum
 
 def main():
     # process_problems_1_10()
